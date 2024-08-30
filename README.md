@@ -1,6 +1,6 @@
 # Flow Log Tagger
 
-A Python script for parsing log files(Version 2) and generating CSV reports with tag and port/protocol counts.
+A Python [script](log_parser.py) for parsing log files(Version 2) and generating CSV reports with tag and port/protocol counts.
 
 This script processes log files to produce two CSV reports:
 1. **Tag Counts**: Counts of each tag based on a lookup table.
@@ -55,7 +55,7 @@ Alternatively, the code can be downloaded as .zip and run
 
 To run the script, use the following command:
 
-1. Run the file with default input files 
+1. Run the file with default input files which are the [data](data) folder
 
 ```bash
 python log_parser.py
