@@ -71,6 +71,13 @@ The script generates two CSV files in the current directory:
 - op_tag_counts.csv: Contains tag counts.
 - op_port_protocol_counts.csv: Contains port/protocol combination counts.
 
+## Error Handling
+
+- **File Not Found**: Handles missing or incorrect file paths. Generates output files based on supplied data while displaying File errors.
+- **CSV Format**: Assumes specific column names in CSV files.
+- **Data Validation**:
+  - **Log File**: Checks for expected formats and handles unexpected formats or errors.
+
 ## Unit Testing
 Unit tests are used to verify the functionality of the script.
 - `unittest` module (included in Python standard library)
