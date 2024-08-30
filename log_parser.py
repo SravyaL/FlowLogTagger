@@ -3,6 +3,7 @@ import os
 import argparse
 
 def parse_file_arguments():
+    """Handles custom input files"""
     parser = argparse.ArgumentParser(description="Process input files.")
     parser.add_argument('--log_file', default='data/input_logs.txt', help='Path to the input log file')
     parser.add_argument('--lookup_file', default='data/lookup_table.csv', help='Path to the lookup table CSV')
@@ -17,6 +18,7 @@ def csv_to_list_dict(input, specific):
                 #this block handles the lookup table
                 list_dict = {}
                 for row in reader:
+                    #if no proper keys found, adding Unnamed tag to handle different format
                     list_dict[(row.get('dstport','0'), row.get('protocol','0').lower())] = row.get('tag','Unnamed')
             else:
                 #this block handles the protocol table
@@ -34,10 +36,12 @@ def write_to_csv(dictionary, output):
     with open(output, 'w', newline='') as f:
         writer = csv.writer(f)
         if('tag' in output):
+            #tag counts
             writer.writerow(['Tag', 'Count'])
             for tag, count in dictionary.items():
                 writer.writerow([tag, count])
         else: 
+            #port/protocol counts
             writer.writerow(["Port", "Protocol", "Count"])
             for (port, protocol), count in dictionary.items():
                 writer.writerow([port, protocol, count])
@@ -48,22 +52,32 @@ def count_matches(ip_log_file, lookup, protocol, tag_counts, port_protocol_count
         with open(ip_log_file, 'r') as logs:
             for line in logs:
                 line = line.strip().split(" ")
-                if len(line) < 14 and line != [''] :
+                if len(line) != 14 and line != [''] :
+                    #handling where the log isn't in expected format
                     print("Line skipped due to insufficient data:", line)
                     continue
                 if(line != [''] and (line[6].isdigit() and line[7].isdigit())):
                     # dstport - index 6 and protocol - index 7
+                    
+                    #key for loopup dictionary 
                     key = (line[6],protocol.get(line[7],'0').lower())
+                    
+                    #Updating dictionary to reflect port/protocol counts
                     port_protocol_counts[key] = port_protocol_counts.get(key,0) +1
+                    
+                    #Below if-else condition is to reflect appropriate tag counts
                     if(key in lookup):                    
                         tag_counts[lookup[key]] = tag_counts.get(lookup[key],0) + 1               
                     else:
                         tag_counts['Untagged'] = tag_counts.get('Untagged',0) + 1
+                        
                 elif(line != ['']):
+                    #Handling no data and skipped record
                     print("There is a 'no data and skipped record'!")
+                    
     except Exception as e:
-        print(f"An error occurred: {e}")
-    
+        print(f"Error occurred with input log file: {e}")
+     
     return tag_counts, port_protocol_counts
             
 
