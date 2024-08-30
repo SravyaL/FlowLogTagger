@@ -48,6 +48,9 @@ def count_matches(ip_log_file, lookup, protocol, tag_counts, port_protocol_count
         with open(ip_log_file, 'r') as logs:
             for line in logs:
                 line = line.strip().split(" ")
+                if len(line) < 14 and line != [''] :
+                    print("Line skipped due to insufficient data:", line)
+                    continue
                 if(line != [''] and (line[6].isdigit() and line[7].isdigit())):
                     # dstport - index 6 and protocol - index 7
                     key = (line[6],protocol.get(line[7],'0').lower())
