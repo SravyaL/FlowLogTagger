@@ -22,7 +22,7 @@ This script processes log files to produce two CSV reports:
 
 ## Assumptions
 
-- **Log File Format**: The log file must be in a specific format where:
+- **Log File Format**: The log file must be in a specific format i.e. Version 2 where:
   - The destination port is located at index 6.
   - The protocol is located at index 7.
   - Each line in the log file is space-separated.
