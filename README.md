@@ -2,8 +2,6 @@
 
 A Python script for parsing log files(Version 2) and generating CSV reports with tag and port/protocol counts.
 
-## Overview
-
 This script processes log files to produce two CSV reports:
 1. **Tag Counts**: Counts of each tag based on a lookup table.
 2. **Port/Protocol Counts**: Counts of occurrences of port/protocol combinations.
@@ -72,3 +70,13 @@ The script generates two CSV files in the current directory:
 
 - op_tag_counts.csv: Contains tag counts.
 - op_port_protocol_counts.csv: Contains port/protocol combination counts.
+
+## Unit Testing
+Unit tests are used to verify the functionality of the script.
+- `unittest` module (included in Python standard library)
+  
+The tests validated:
+- CSV to Dictionary Conversion: Checks that CSV files are correctly converted into dictionaries for lookup and protocol tables.
+- Match Counting: Validates that log entries are processed correctly and counts are updated for tags and port/protocol pairs.
+- CSV Writing: Ensures that dictionaries are written correctly to CSV files.
+
