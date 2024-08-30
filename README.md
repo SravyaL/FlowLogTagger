@@ -55,7 +55,7 @@ Alternatively, the code can be downloaded as .zip and run
 
 To run the script, use the following command:
 
-1. Run the file with default input files which are the [data](data) folder
+1. Run the file with default input files which are in the [data](data) folder
 
 ```bash
 python log_parser.py
